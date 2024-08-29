@@ -1,50 +1,58 @@
 <div id="votd-container">
+    <!-- Verse of the Day content will be injected here -->
     <div id="votd-content"></div>
 </div>
 
+<script>
+    // Override the BibleGateway callback to place content inside the #votd-content div
+    function BGvotdWriteCallback(json) {
+        const container = document.getElementById('votd-content');
+        if (container) {
+            container.innerHTML = json.votd + '<br><br>' + '<a href="' + json.votd_url + '" target="_blank">Powered by BibleGateway.com</a>';
+        }
+    }
+</script>
+
 <script src="https://www.biblegateway.com/votd/votd.write.callback.js"></script>
-<script src="https://www.biblegateway.com/votd/get/?format=json&version=NIV&callback=BG.votdWriteCallback"></script>
+<script src="https://www.biblegateway.com/votd/get/?format=json&version=NIV&callback=BGvotdWriteCallback"></script>
 
 <noscript>
-    <iframe framespacing="0" frameborder="no" src="https://www.biblegateway.com/votd/get/?format=html&version=NIV" style="width:100%; height:150px; border:none; background-color:#2c2c2c; color:#ffffff;">View Verse of the Day</iframe>
+    <iframe framespacing="0" frameborder="no" src="https://www.biblegateway.com/votd/get/?format=html&version=NIV" style="width:100%; height:150px; border:none; background-color:#2c2c2c; color:#ffffff; border-radius: 10px;">View Verse of the Day</iframe>
 </noscript>
 
 <style>
+    /* Container for the Verse of the Day */
     #votd-container {
-        background-color: #2c2c2c; /* Dark background to match dark mode */
-        border-radius: 10px;
+        background-color: #2c2c2c; /* Dark background */
+        border-radius: 10px; /* Rounded corners */
         padding: 20px;
-        max-width: 600px;
-        margin: 20px auto;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-        font-family: 'Arial', sans-serif; /* Modern font */
-        color: #ffffff; /* Light text color for contrast */
+        max-width: 800px; /* Control the width */
+        margin: 20px auto; /* Center on the page */
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+        font-family: 'Arial', sans-serif; /* Modern, clean font */
+        color: #ffffff; /* White text for readability */
+        text-align: center; /* Center the text */
     }
 
+    /* Style the content within the container */
     #votd-content {
+        color: #ffffff; /* Ensure verse text is visible */
         font-size: 18px;
         line-height: 1.6;
-        color: #ffffff; /* Ensure the text remains readable in dark mode */
     }
 
-    /* Styling the verse content directly */
-    #votd-content p {
-        margin: 0;
-        color: #ffffff; /* Light color for verse text */
-    }
-
-    /* Styling links to make them visible */
     #votd-content a {
-        color: #4da6ff; /* Light blue color for links */
-        text-decoration: none;
+        color: #4da6ff; /* Light blue links */
+        text-decoration: none; /* No underline by default */
     }
 
     #votd-content a:hover {
-        text-decoration: underline; /* Underline on hover for clarity */
+        text-decoration: underline; /* Underline on hover */
     }
 
-    /* Remove the default border and styling for the "Powered by" image */
-    #votd-content img {
-        display: none; /* Hide the Powered by image if you prefer it not to be shown */
+    /* Ensure iframe fallback fits the design */
+    iframe {
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Matches the container */
     }
 </style>
